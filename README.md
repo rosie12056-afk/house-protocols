@@ -16,9 +16,9 @@ The three repositories form one explicit chain:
 
 This repository is the definition layer. It does not schedule work or run models. See [ROADMAP.md](ROADMAP.md) and [COMPATIBILITY.md](COMPATIBILITY.md).
 
-## What the current release candidate includes
+## What v0.2 includes
 
-The package retains the complete `0.1` profile and adds an explicit `0.2` release-candidate profile. Callers choose a profile; documents are never silently coerced between versions.
+The package retains the complete `0.1` profile and adds an explicit stable `0.2` profile. Callers choose a profile; documents are never silently coerced between versions.
 
 - **Event Envelope**: stable event identity, origin, target, time, idempotency, and tracing fields.
 - **Context Manifest**: records which context references were used without copying private source text.
@@ -88,7 +88,7 @@ Demo output is written to `.demo-output/`.
 - A Context Manifest stores references, not the private body of referenced material.
 - Evidence is auditable material, not truth. Implementations still need an explicit truth-assessment policy.
 - The Keel example uses only a fictional agent. Its grounding statement is `缘起性空，性空缘起，一切皆是因果。`; it is not copied from a real House instance.
-- v0.2 is an **experimental release candidate** and may introduce incompatible changes before its stable v0.2 release.
+- v0.2 remains **experimental**. Any future incompatible protocol change must use a new document profile and migration fixtures.
 - This release provides protocols, semantic validation, and a demo. It does not provide production scheduling, queues, databases, or model calls.
 
 ## Not included

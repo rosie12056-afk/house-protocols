@@ -3,7 +3,7 @@
 House Protocols has two related version surfaces:
 
 - the repository/package release, such as `v0.1.1`;
-- the `protocol_version` inside a document, currently `0.1` or the `0.2` release-candidate profile.
+- the `protocol_version` inside a document, currently `0.1` or stable `0.2`.
 
 ## v0 policy
 
@@ -23,4 +23,4 @@ Dependency lockfiles resolve the tags to commit SHAs. Publishing Protocols v0.2 
 
 ## Adding v0.2
 
-The Protocols release candidate exposes separate `0.1` and `0.2` profiles and retains migration fixtures for all seven original kinds. House Toolkit v0.2 must validate both profiles. House Runtime must adopt v0.2 explicitly, run those fixtures, and publish its own compatible release. Compatibility is demonstrated by tests; matching version numbers alone is not sufficient.
+Protocols v0.2 exposes separate `0.1` and `0.2` profiles and retains migration fixtures for all seven original kinds. House Toolkit v0.2 validates both profiles. House Runtime adopted v0.2 explicitly and runs the shared fixtures. Compatibility is demonstrated by tests; matching version numbers alone is not sufficient.
