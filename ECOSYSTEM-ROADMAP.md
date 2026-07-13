@@ -27,8 +27,8 @@ flowchart LR
 
   classDef released fill:#dff2e5,stroke:#23633b,stroke-width:2px,color:#13281a;
   classDef next fill:#fff2c7,stroke:#7a5b00,stroke-width:2px,color:#2e2400;
-  class P02,T02,R20 released;
-  class P03RC,T03RC,R03RC,A01C,C01C next;
+  class P02,T02,R20,P03RC,T03RC,R03RC released;
+  class A01C,C01C next;
 ```
 
 ## Phase table
@@ -38,9 +38,9 @@ flowchart LR
 | T0: released baseline | Completed | `v0.1.1` | `v0.1.1` | `v0.1.0-alpha.1` | Not created | Not created | Historical public-clone and CI baseline passed |
 | T1: contract alignment | Completed | `v0.2 RC` | `v0.2 RC` | `alpha.2` development branch | Not created | Not created | v0.1 retention fixtures and v0.2 migration fixtures passed in Toolkit and Runtime |
 | T2: controlled Runtime | Completed | `v0.2.0` | `v0.2.0` | `v0.1.0-alpha.2.1` | Design notes only | API observations only | Scheduler, timeout, cancellation, confirmation, Resignature, Memory Port, and restart tests pass |
-| T3: 24-hour lifecycle | Current completed release line | `v0.2.1` | `v0.2.1` | `v0.2.0` | Not created | Not created | Fake-clock tests cover sleep, tick, journal, dream, handoff, restart, and delivery feedback loops |
-| T4: portability candidates | Next; about 3-5 focused development days plus second implementations | `v0.3 RC` | `v0.3 RC` | `v0.3 RC` | Local `v0.1` candidate | Local `v0.1 alpha` candidate | Two Memory Adapters and two clients pass conformance without private House dependencies |
-| T5: public portability | After T4 gates; release hardening only | `v0.3` | `v0.3` | `v0.3` | Create repository and release `v0.1` | Create repository and release `v0.1 alpha` | Public clone, migration, security, and cross-repository CI pass |
+| T3: 24-hour lifecycle | Completed stable release line | `v0.2.1` | `v0.2.1` | `v0.2.0` | Not created | Not created | Fake-clock tests cover sleep, tick, journal, dream, handoff, restart, and delivery feedback loops |
+| T4: portability candidates | Current completed release-candidate line | `v0.3.0-rc.1` | `v0.3.0-rc.1` | `v0.3.0-rc.1` | Not created; two standalone local adapters pass | Not created; two Runtime clients pass | Two Memory Adapters, two clients, restart delivery, migration, and cross-repository CI pass without private House dependencies |
+| T5: public portability | Next; repository-specific implementation and release hardening | Stable `v0.3` after second-consumer feedback | Stable `v0.3` after external fixtures | Stable `v0.3` after candidate feedback | Create repository, implement against RC port, and release `v0.1` | Create repository, implement against RC API, and release `v0.1 alpha` | Public clone, Anchor compatibility, authenticated client, migration, security, and cross-repository CI pass |
 
 Effort estimates begin only after the previous phase passes. They exclude production House integration and may change when tests expose architectural work.
 
@@ -50,5 +50,5 @@ Effort estimates begin only after the previous phase passes. They exclude produc
 2. Toolkit publishes a conformance profile before Runtime adopts a new protocol version.
 3. Runtime adopts versions explicitly through exact tags and lockfile SHAs.
 4. Runtime v0.2 must prove lifecycle behavior with a fake clock before real scheduling is enabled.
-5. Anchor Adapter and Console repositories are not created until Runtime v0.3 candidate ports have independent implementations to test against.
+5. The Runtime v0.3 candidate ports now have independent implementations. Anchor Adapter and Console repositories may be created in T5, but they do not inherit a release merely because the ports passed.
 6. Production House integration is a separate shadow-and-migration project, not an automatic final phase of this public roadmap.
