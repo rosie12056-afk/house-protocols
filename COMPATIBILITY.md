@@ -24,3 +24,5 @@ Dependency lockfiles resolve the tags to commit SHAs. Publishing Protocols v0.2 
 ## Adding v0.2
 
 Protocols v0.2 exposes separate `0.1` and `0.2` profiles and retains migration fixtures for all seven original kinds. House Toolkit v0.2 validates both profiles. House Runtime adopted v0.2 explicitly and runs the shared fixtures. Compatibility is demonstrated by tests; matching version numbers alone is not sufficient.
+
+Protocols `v0.2.1` adds lifecycle kinds without changing existing `0.2` documents. Runtime v0.2 and Toolkit v0.2.1 pass the shared lifecycle fixture set.
