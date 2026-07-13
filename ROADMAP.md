@@ -2,6 +2,8 @@
 
 House Protocols defines the records and trust boundaries shared by House Toolkit and House Runtime. Releases are milestone-driven rather than date-driven: a version ships only when its fixtures pass in every listed consumer.
 
+For the five-repository dependency timeline, see [ECOSYSTEM-ROADMAP.md](ECOSYSTEM-ROADMAP.md).
+
 | Milestone | Target gate | What it adds | Problem solved | Primary users |
 | --- | --- | --- | --- | --- |
 | v0.1 | Released | Event, Context Manifest, Evidence, Initiative, Resignature, Keel, and Memory Policy contracts | Gives persistent agent systems a small shared vocabulary and prevents model output from silently becoming fact or completion | Runtime authors and agent-system researchers |
