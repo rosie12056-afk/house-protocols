@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://house-protocols.dev/schemas/initiative.schema.json",
+  "title": "Initiative Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol_version", "initiative_id", "owner_id", "goal", "status", "created_at", "updated_at", "actual_actions", "outputs", "evidence_refs"],
+  "properties": {
+    "protocol_version": { "const": "0.1" },
+    "initiative_id": { "$ref": "common.schema.json#/$defs/id" },
+    "owner_id": { "$ref": "common.schema.json#/$defs/id" },
+    "goal": { "type": "string", "minLength": 1, "maxLength": 2000 },
+    "status": { "type": "string", "enum": ["candidate", "selected", "active", "blocked", "review", "completed", "abandoned", "expired"] },
+    "created_at": { "$ref": "common.schema.json#/$defs/timestamp" },
+    "updated_at": { "$ref": "common.schema.json#/$defs/timestamp" },
+    "actual_actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["action_id", "action_type", "started_at", "status"],
+        "properties": {
+          "action_id": { "$ref": "common.schema.json#/$defs/id" },
+          "action_type": { "type": "string", "minLength": 1, "maxLength": 160 },
+          "started_at": { "$ref": "common.schema.json#/$defs/timestamp" },
+          "finished_at": { "$ref": "common.schema.json#/$defs/timestamp" },
+          "status": { "type": "string", "enum": ["started", "succeeded", "failed", "cancelled"] },
+          "result_summary": { "type": "string", "maxLength": 2000 }
+        }
+      }
+    },
+    "outputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["output_id", "output_type", "locator"],
+        "properties": {
+          "output_id": { "$ref": "common.schema.json#/$defs/id" },
+          "output_type": { "type": "string", "enum": ["artifact", "external_result", "decision", "observation"] },
+          "locator": { "type": "string", "minLength": 1, "maxLength": 1024 },
+          "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+        }
+      }
+    },
+    "evidence_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "common.schema.json#/$defs/id" }
+    },
+    "blocked_reason": { "type": "string", "maxLength": 2000 },
+    "extensions": { "type": "object" }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://house-protocols.dev/schemas/context-manifest.schema.json",
+  "title": "Context Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol_version", "manifest_id", "run_id", "subject_id", "created_at", "entries"],
+  "properties": {
+    "protocol_version": { "const": "0.1" },
+    "manifest_id": { "$ref": "common.schema.json#/$defs/id" },
+    "run_id": { "$ref": "common.schema.json#/$defs/id" },
+    "subject_id": { "$ref": "common.schema.json#/$defs/id" },
+    "created_at": { "$ref": "common.schema.json#/$defs/timestamp" },
+    "entries": {
+      "type": "array",
+      "maxItems": 256,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["ref_id", "kind", "locator", "purpose"],
+        "properties": {
+          "ref_id": { "$ref": "common.schema.json#/$defs/id" },
+          "kind": { "type": "string", "enum": ["event", "message", "memory", "artifact", "source", "claim", "evidence", "other"] },
+          "locator": { "type": "string", "minLength": 1, "maxLength": 1024 },
+          "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+          "observed_at": { "$ref": "common.schema.json#/$defs/timestamp" },
+          "purpose": { "type": "string", "minLength": 1, "maxLength": 240 },
+          "retrieval_confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+        }
+      }
+    },
+    "budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "item_count": { "type": "integer", "minimum": 0 },
+        "estimated_tokens": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "extensions": { "type": "object" }
+  }
+}

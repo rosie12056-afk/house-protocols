@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://house-protocols.dev/schemas/keel.schema.json",
+  "title": "Keel Document",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol_version", "keel_id", "subject_id", "revision", "grounding_statement", "created_at", "provenance"],
+  "properties": {
+    "protocol_version": { "const": "0.1" },
+    "keel_id": { "$ref": "common.schema.json#/$defs/id" },
+    "subject_id": { "$ref": "common.schema.json#/$defs/id" },
+    "revision": { "type": "integer", "minimum": 1 },
+    "grounding_statement": { "type": "string", "minLength": 1, "maxLength": 4000 },
+    "materials": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["material_id", "kind", "body"],
+        "properties": {
+          "material_id": { "$ref": "common.schema.json#/$defs/id" },
+          "kind": { "type": "string", "enum": ["principle", "continuity_note", "boundary", "source_note", "other"] },
+          "body": { "type": "string", "minLength": 1, "maxLength": 8000 },
+          "source_ref": { "$ref": "common.schema.json#/$defs/reference" }
+        }
+      }
+    },
+    "created_at": { "$ref": "common.schema.json#/$defs/timestamp" },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["instance", "author_id"],
+      "properties": {
+        "instance": { "type": "string", "enum": ["fictional_example", "private_instance", "imported"] },
+        "author_id": { "$ref": "common.schema.json#/$defs/id" }
+      }
+    },
+    "extensions": { "type": "object" }
+  }
+}

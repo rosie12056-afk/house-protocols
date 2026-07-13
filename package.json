@@ -1,0 +1,32 @@
+{
+  "name": "house-protocols",
+  "version": "0.1.0",
+  "description": "Experimental, model-independent contracts for persistent agent systems.",
+  "type": "module",
+  "license": "Apache-2.0",
+  "private": false,
+  "files": [
+    "schemas",
+    "src",
+    "README.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "exports": {
+    ".": "./src/index.mjs",
+    "./schemas/*": "./schemas/*"
+  },
+  "scripts": {
+    "demo": "node demo/run.mjs",
+    "test": "node --test",
+    "scan:private": "node scripts/scan-private.mjs",
+    "check": "npm test && npm run demo && npm run scan:private"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
