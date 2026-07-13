@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://house-protocols.dev/schemas/v0.2/handoff-record.schema.json",
+  "title": "Handoff Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol_version", "handoff_id", "subject_id", "period_start", "period_end", "open_initiative_refs", "completed_initiative_refs", "unresolved_questions", "source_refs", "created_at"],
+  "properties": {
+    "protocol_version": { "const": "0.2" },
+    "handoff_id": { "$ref": "common.schema.json#/$defs/id" },
+    "subject_id": { "$ref": "common.schema.json#/$defs/id" },
+    "period_start": { "$ref": "common.schema.json#/$defs/timestamp" },
+    "period_end": { "$ref": "common.schema.json#/$defs/timestamp" },
+    "open_initiative_refs": { "type": "array", "uniqueItems": true, "items": { "$ref": "common.schema.json#/$defs/id" } },
+    "completed_initiative_refs": { "type": "array", "uniqueItems": true, "items": { "$ref": "common.schema.json#/$defs/id" } },
+    "unresolved_questions": { "type": "array", "maxItems": 32, "items": { "type": "string", "minLength": 1, "maxLength": 2000 } },
+    "source_refs": { "type": "array", "uniqueItems": true, "items": { "$ref": "common.schema.json#/$defs/reference" } },
+    "created_at": { "$ref": "common.schema.json#/$defs/timestamp" },
+    "extensions": { "type": "object" }
+  }
+}

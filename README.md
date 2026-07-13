@@ -30,6 +30,10 @@ The package retains the complete `0.1` profile and adds an explicit stable `0.2`
 - **Record Lifecycle Event (`0.2`)**: records supersession, soft deletion, and restoration without overwriting the original record.
 - **Scheduler Lease (`0.2`)**: defines bounded ownership with expiry and fencing tokens.
 - **Capability Grant (`0.2`)**: defines scoped operations, risk tier, and confirmation mode.
+- **Life State and Lifecycle Opportunity (`0.2`)**: represent sleep/awake transitions and optional opportunities without prescribing a prompt or action.
+- **Journal Entry (`0.2`)**: separates sourced events, reflections, and intentions; observed events require Evidence.
+- **Dream Record (`0.2`)**: is structurally marked `non_factual` so dream imagery cannot silently become an external fact.
+- **Handoff Record (`0.2`)**: links open and completed Initiative references and unresolved questions across periods.
 
 The original `0.1` schemas remain in `schemas/`; `0.2` schemas live in `schemas/v0.2/`. Cross-field rules live in `src/semantic-rules.mjs`.
 
@@ -54,6 +58,10 @@ validateProtocol("scheduler_lease", leaseV02, { profile: "0.2" });
 | Record Lifecycle Event | Makes supersession and soft deletion append-only and reversible |
 | Scheduler Lease | Prevents overlapping workers from treating stale ownership as current |
 | Capability Grant | Keeps tool authority scoped, expiring, and explicit about confirmation |
+| Life State / Opportunity | Gives a Runtime time-aware opportunities without centrally authoring an agent's response |
+| Journal Entry | Keeps sourced events separate from reflection and intention |
+| Dream Record | Preserves dream material while preventing factual promotion |
+| Handoff Record | Carries unresolved work across sleep or process boundaries using references |
 
 ## Five-minute demo
 

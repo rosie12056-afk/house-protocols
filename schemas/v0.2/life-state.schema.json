@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://house-protocols.dev/schemas/v0.2/life-state.schema.json",
+  "title": "Life State",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol_version", "state_id", "subject_id", "state", "effective_at", "schedule_id"],
+  "properties": {
+    "protocol_version": { "const": "0.2" },
+    "state_id": { "$ref": "common.schema.json#/$defs/id" },
+    "subject_id": { "$ref": "common.schema.json#/$defs/id" },
+    "state": { "type": "string", "enum": ["awake", "sleeping"] },
+    "effective_at": { "$ref": "common.schema.json#/$defs/timestamp" },
+    "schedule_id": { "$ref": "common.schema.json#/$defs/id" },
+    "previous_state_id": { "$ref": "common.schema.json#/$defs/id" },
+    "extensions": { "type": "object" }
+  }
+}

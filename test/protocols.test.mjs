@@ -21,7 +21,9 @@ test("all v0.1 protocol kinds are registered", () => {
 
 test("v0.2 adds lifecycle, scheduler, and capability contracts without changing the v0.1 profile", () => {
   assert.deepEqual(protocolProfiles(), ["0.1", "0.2"]);
-  assert.deepEqual(protocolKinds("0.2").slice(-3), ["record_lifecycle", "scheduler_lease", "capability_grant"]);
+  for (const kind of ["record_lifecycle", "scheduler_lease", "capability_grant", "life_state", "lifecycle_opportunity", "journal_entry", "dream_record", "handoff_record"]) {
+    assert.equal(protocolKinds("0.2").includes(kind), true, kind);
+  }
   assert.equal(protocolKinds("0.1").includes("scheduler_lease"), false);
 });
 
@@ -36,6 +38,29 @@ test("all retained v0.1 and migrated v0.2 fixtures validate in their explicit pr
 test("all new v0.2 contracts validate", () => {
   const fixture = JSON.parse(readFileSync(join(root, "fixtures", "v0.2", "new-contracts.json"), "utf8"));
   for (const record of fixture.records) assert.equal(validateProtocol(record.kind, record.document, { profile: "0.2" }).ok, true, record.kind);
+});
+
+test("all v0.2 lifecycle contracts validate", () => {
+  const fixture = JSON.parse(readFileSync(join(root, "fixtures", "v0.2", "lifecycle-contracts.json"), "utf8"));
+  for (const record of fixture.records) assert.equal(validateProtocol(record.kind, record.document, { profile: "0.2" }).ok, true, record.kind);
+});
+
+test("dream records are structurally non-factual", () => {
+  const fixture = JSON.parse(readFileSync(join(root, "fixtures", "v0.2", "lifecycle-contracts.json"), "utf8"));
+  const dream = structuredClone(fixture.records.find((item) => item.kind === "dream_record").document);
+  dream.factuality = "observed";
+  const result = validateProtocol("dream_record", dream, { profile: "0.2" });
+  assert.equal(result.ok, false);
+  assert(result.schema_errors.some((item) => item.code === VALIDATION_RULE_CODES.CONST));
+});
+
+test("journal observations cannot be recorded as fact without evidence", () => {
+  const fixture = JSON.parse(readFileSync(join(root, "fixtures", "v0.2", "lifecycle-contracts.json"), "utf8"));
+  const journal = structuredClone(fixture.records.find((item) => item.kind === "journal_entry").document);
+  journal.events[0].evidence_refs = [];
+  const result = validateProtocol("journal_entry", journal, { profile: "0.2" });
+  assert.equal(result.ok, false);
+  assert(result.semantic_errors.some((item) => item.code === RULE_CODES.JOURNAL_OBSERVATION_WITHOUT_EVIDENCE));
 });
 
 test("profile mismatch and unknown versions return stable rule codes", () => {

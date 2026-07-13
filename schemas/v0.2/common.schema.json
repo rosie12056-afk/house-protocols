@@ -22,7 +22,7 @@
         "ref_id": { "$ref": "#/$defs/id" },
         "kind": {
           "type": "string",
-          "enum": ["event", "message", "memory", "artifact", "source", "claim", "evidence", "lifecycle", "scheduler_lease", "capability_grant", "other"]
+          "enum": ["event", "message", "memory", "artifact", "source", "claim", "evidence", "lifecycle", "scheduler_lease", "capability_grant", "life_state", "opportunity", "journal", "dream", "handoff", "other"]
         },
         "locator": { "type": "string", "minLength": 1, "maxLength": 1024 },
         "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },

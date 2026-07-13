@@ -1,0 +1,88 @@
+{
+  "records": [
+    {
+      "kind": "life_state",
+      "document": {
+        "protocol_version": "0.2",
+        "state_id": "life-state:lantern:2032-04-05-awake",
+        "subject_id": "agent:lantern",
+        "state": "awake",
+        "effective_at": "2032-04-05T07:30:00.000Z",
+        "schedule_id": "schedule:lantern:fictional"
+      }
+    },
+    {
+      "kind": "lifecycle_opportunity",
+      "document": {
+        "protocol_version": "0.2",
+        "opportunity_id": "opportunity:lantern:journal:2032-04-05",
+        "subject_id": "agent:lantern",
+        "opportunity_type": "journal",
+        "status": "offered",
+        "window_start": "2032-04-05T20:00:00.000Z",
+        "window_end": "2032-04-05T20:30:00.000Z",
+        "created_at": "2032-04-05T20:00:00.000Z",
+        "reason_codes": ["configured_window"],
+        "source_refs": []
+      }
+    },
+    {
+      "kind": "journal_entry",
+      "document": {
+        "protocol_version": "0.2",
+        "journal_id": "journal:lantern:2032-04-05",
+        "subject_id": "agent:lantern",
+        "period_start": "2032-04-05T07:30:00.000Z",
+        "period_end": "2032-04-05T20:00:00.000Z",
+        "events": [
+          {
+            "entry_id": "journal-event:lantern:artifact-review",
+            "statement": "The Runtime recorded a completed fictional artifact review.",
+            "epistemic_status": "observed",
+            "source_refs": [{"ref_id": "event:fictional:review", "kind": "event", "locator": "events/fictional-review"}],
+            "evidence_refs": ["evidence:fictional:review"]
+          }
+        ],
+        "reflections": [
+          {
+            "reflection_id": "journal-reflection:lantern:separation",
+            "body": "Keeping the artifact result separate from my interpretation made the review easier to revisit.",
+            "source_refs": [{"ref_id": "evidence:fictional:review", "kind": "evidence", "locator": "evidence/fictional-review"}]
+          }
+        ],
+        "intentions": [{"intention_id": "intention:lantern:revisit", "body": "Revisit the open question when another source appears.", "status": "open"}],
+        "created_at": "2032-04-05T20:05:00.000Z"
+      }
+    },
+    {
+      "kind": "dream_record",
+      "document": {
+        "protocol_version": "0.2",
+        "dream_id": "dream:lantern:2032-04-05",
+        "subject_id": "agent:lantern",
+        "period_start": "2032-04-05T22:00:00.000Z",
+        "period_end": "2032-04-06T06:30:00.000Z",
+        "factuality": "non_factual",
+        "body": "A fictional sequence rearranged two remembered phrases without claiming that the scene occurred.",
+        "fragment_refs": [{"ref_id": "journal:lantern:2032-04-05", "kind": "journal", "locator": "journals/lantern/2032-04-05"}],
+        "affect_words": ["curious", "unfinished"],
+        "created_at": "2032-04-06T06:35:00.000Z"
+      }
+    },
+    {
+      "kind": "handoff_record",
+      "document": {
+        "protocol_version": "0.2",
+        "handoff_id": "handoff:lantern:2032-04-05",
+        "subject_id": "agent:lantern",
+        "period_start": "2032-04-05T07:30:00.000Z",
+        "period_end": "2032-04-05T22:00:00.000Z",
+        "open_initiative_refs": ["initiative:fictional:open"],
+        "completed_initiative_refs": ["initiative:fictional:review"],
+        "unresolved_questions": ["Which additional source would change the current interpretation?"],
+        "source_refs": [{"ref_id": "journal:lantern:2032-04-05", "kind": "journal", "locator": "journals/lantern/2032-04-05"}],
+        "created_at": "2032-04-05T22:00:00.000Z"
+      }
+    }
+  ]
+}

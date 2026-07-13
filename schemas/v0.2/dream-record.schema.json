@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://house-protocols.dev/schemas/v0.2/dream-record.schema.json",
+  "title": "Dream Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol_version", "dream_id", "subject_id", "period_start", "period_end", "factuality", "body", "fragment_refs", "created_at"],
+  "properties": {
+    "protocol_version": { "const": "0.2" },
+    "dream_id": { "$ref": "common.schema.json#/$defs/id" },
+    "subject_id": { "$ref": "common.schema.json#/$defs/id" },
+    "period_start": { "$ref": "common.schema.json#/$defs/timestamp" },
+    "period_end": { "$ref": "common.schema.json#/$defs/timestamp" },
+    "factuality": { "const": "non_factual" },
+    "body": { "type": "string", "minLength": 1, "maxLength": 16000 },
+    "fragment_refs": { "type": "array", "maxItems": 64, "uniqueItems": true, "items": { "$ref": "common.schema.json#/$defs/reference" } },
+    "affect_words": { "type": "array", "maxItems": 32, "uniqueItems": true, "items": { "type": "string", "minLength": 1, "maxLength": 80 } },
+    "created_at": { "$ref": "common.schema.json#/$defs/timestamp" },
+    "extensions": { "type": "object" }
+  }
+}

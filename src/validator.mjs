@@ -26,6 +26,11 @@ const PROFILES = Object.freeze({
       record_lifecycle: "record-lifecycle.schema.json",
       scheduler_lease: "scheduler-lease.schema.json",
       capability_grant: "capability-grant.schema.json",
+      life_state: "life-state.schema.json",
+      lifecycle_opportunity: "lifecycle-opportunity.schema.json",
+      journal_entry: "journal-entry.schema.json",
+      dream_record: "dream-record.schema.json",
+      handoff_record: "handoff-record.schema.json",
     }),
   },
 });

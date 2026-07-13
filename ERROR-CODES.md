@@ -40,3 +40,6 @@ Error codes are the compatibility surface. Human-readable messages may improve w
 | `E_RESIGNATURE_EXTERNAL_CLAIM_WITHOUT_EVIDENCE` | A later interpretation includes an unsupported external claim |
 | `E_INVALID_TIME_ORDER` | A lifecycle timestamp precedes the event it depends on |
 | `E_LIFECYCLE_SELF_REPLACEMENT` | A record attempts to supersede itself |
+| `E_JOURNAL_OBSERVATION_WITHOUT_EVIDENCE` | A journal event marked observed has no Evidence |
+| `E_JOURNAL_REPORT_WITHOUT_SOURCE` | A journal event marked reported has no source reference |
+| `E_JOURNAL_INFERENCE_WITHOUT_SOURCE` | A journal inference has no source material |

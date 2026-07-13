@@ -4,9 +4,12 @@ export {
   validateCapabilityGrantSemantics,
   validateEvidenceSemantics,
   validateInitiativeSemantics,
+  validateJournalSemantics,
+  validateLifecycleOpportunitySemantics,
   validateMemoryPolicySemantics,
   validateProtocolSemantics,
   validateRecordLifecycleSemantics,
+  validatePeriodSemantics,
   validateResignatureSemantics,
   validateSchedulerLeaseSemantics,
 } from "./semantic-rules.mjs";

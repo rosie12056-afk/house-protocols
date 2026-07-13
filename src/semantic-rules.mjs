@@ -11,6 +11,9 @@ export const RULE_CODES = Object.freeze({
   RESIGNATURE_EXTERNAL_CLAIM_WITHOUT_EVIDENCE: "E_RESIGNATURE_EXTERNAL_CLAIM_WITHOUT_EVIDENCE",
   INVALID_TIME_ORDER: "E_INVALID_TIME_ORDER",
   LIFECYCLE_SELF_REPLACEMENT: "E_LIFECYCLE_SELF_REPLACEMENT",
+  JOURNAL_OBSERVATION_WITHOUT_EVIDENCE: "E_JOURNAL_OBSERVATION_WITHOUT_EVIDENCE",
+  JOURNAL_REPORT_WITHOUT_SOURCE: "E_JOURNAL_REPORT_WITHOUT_SOURCE",
+  JOURNAL_INFERENCE_WITHOUT_SOURCE: "E_JOURNAL_INFERENCE_WITHOUT_SOURCE",
 });
 
 function error(code, path, message) {
@@ -120,6 +123,36 @@ export function validateRecordLifecycleSemantics(lifecycle) {
   return [];
 }
 
+export function validatePeriodSemantics(document) {
+  if (time(document.period_end) < time(document.period_start)) {
+    return [error(RULE_CODES.INVALID_TIME_ORDER, "/period_end", "period_end must not be earlier than period_start.")];
+  }
+  return [];
+}
+
+export function validateLifecycleOpportunitySemantics(opportunity) {
+  if (time(opportunity.window_end) <= time(opportunity.window_start)) {
+    return [error(RULE_CODES.INVALID_TIME_ORDER, "/window_end", "window_end must be later than window_start.")];
+  }
+  return [];
+}
+
+export function validateJournalSemantics(journal) {
+  const errors = validatePeriodSemantics(journal);
+  for (const [index, item] of journal.events.entries()) {
+    if (item.epistemic_status === "observed" && !item.evidence_refs.length) {
+      errors.push(error(RULE_CODES.JOURNAL_OBSERVATION_WITHOUT_EVIDENCE, `/events/${index}/evidence_refs`, "An observed journal event requires linked evidence."));
+    }
+    if (item.epistemic_status === "reported" && !item.source_refs.length) {
+      errors.push(error(RULE_CODES.JOURNAL_REPORT_WITHOUT_SOURCE, `/events/${index}/source_refs`, "A reported journal event requires a source reference."));
+    }
+    if (item.epistemic_status === "inferred" && !item.source_refs.length) {
+      errors.push(error(RULE_CODES.JOURNAL_INFERENCE_WITHOUT_SOURCE, `/events/${index}/source_refs`, "An inferred journal event requires the source material it was inferred from."));
+    }
+  }
+  return errors;
+}
+
 export function validateProtocolSemantics(kind, document) {
   if (kind === "evidence") return validateEvidenceSemantics(document);
   if (kind === "initiative") return validateInitiativeSemantics(document);
@@ -128,5 +161,8 @@ export function validateProtocolSemantics(kind, document) {
   if (kind === "scheduler_lease") return validateSchedulerLeaseSemantics(document);
   if (kind === "capability_grant") return validateCapabilityGrantSemantics(document);
   if (kind === "record_lifecycle") return validateRecordLifecycleSemantics(document);
+  if (kind === "lifecycle_opportunity") return validateLifecycleOpportunitySemantics(document);
+  if (kind === "journal_entry") return validateJournalSemantics(document);
+  if (["dream_record", "handoff_record"].includes(kind)) return validatePeriodSemantics(document);
   return [];
 }

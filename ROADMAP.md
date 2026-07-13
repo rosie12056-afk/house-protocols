@@ -7,7 +7,7 @@ For the five-repository dependency timeline, see [ECOSYSTEM-ROADMAP.md](ECOSYSTE
 | Milestone | Target gate | What it adds | Problem solved | Primary users |
 | --- | --- | --- | --- | --- |
 | v0.1 | Released | Event, Context Manifest, Evidence, Initiative, Resignature, Keel, and Memory Policy contracts | Gives persistent agent systems a small shared vocabulary and prevents model output from silently becoming fact or completion | Runtime authors and agent-system researchers |
-| v0.2 | Released after House Toolkit conformance and House Runtime `alpha.2` adoption | Stable error-code catalog, identifier and timestamp rules, deletion/supersession semantics, upgrade fixtures, scheduler/capability contracts, and explicit v0.1-to-v0.2 migration examples | Makes protocol evolution testable instead of relying on prose and gives Toolkit enough information for full conformance checks | Runtime, adapter, and audit-tool implementers |
+| v0.2 | Released; additive lifecycle contracts enter through patch release candidates | Stable error-code catalog, identifier and timestamp rules, deletion/supersession semantics, upgrade fixtures, scheduler/capability contracts, migration examples, and lifecycle records | Makes protocol evolution testable and gives time-aware systems explicit evidence boundaries for journal, dream, and handoff material | Runtime, adapter, and audit-tool implementers |
 | v0.3 | After a second independent v0.2 consumer passes conformance | Extension governance, compatibility profiles, a second validator implementation, migration tooling contracts, and a candidate stable core | Tests that the contracts are truly portable and not accidentally shaped around one Runtime | Third-party implementers and long-lived deployments |
 
 ## Release gates
