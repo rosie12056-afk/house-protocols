@@ -27,4 +27,4 @@ Protocols v0.2 exposes separate `0.1` and `0.2` profiles and retains migration f
 
 Protocols `v0.2.1` adds lifecycle kinds without changing existing `0.2` documents. Runtime v0.2 and Toolkit v0.2.1 pass the shared lifecycle fixture set.
 
-The unreleased package candidate `v0.3.0-rc.0` retains the `0.1` and `0.2` document profiles and adds `runtime_request` and `runtime_response` kinds to `0.2`. It is available only on `t4-portability` until two Runtime clients and cross-repository conformance pass.
+Package candidate `v0.3.0-rc.1` retains the `0.1` and `0.2` document profiles and adds `runtime_request` and `runtime_response` kinds to `0.2`. Two Runtime clients and cross-repository conformance consume these fixtures before a stable v0.3 release.

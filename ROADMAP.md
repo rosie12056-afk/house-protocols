@@ -8,7 +8,7 @@ For the five-repository dependency timeline, see [ECOSYSTEM-ROADMAP.md](ECOSYSTE
 | --- | --- | --- | --- | --- |
 | v0.1 | Released | Event, Context Manifest, Evidence, Initiative, Resignature, Keel, and Memory Policy contracts | Gives persistent agent systems a small shared vocabulary and prevents model output from silently becoming fact or completion | Runtime authors and agent-system researchers |
 | v0.2 | Released; additive lifecycle contracts enter through patch release candidates | Stable error-code catalog, identifier and timestamp rules, deletion/supersession semantics, upgrade fixtures, scheduler/capability contracts, migration examples, and lifecycle records | Makes protocol evolution testable and gives time-aware systems explicit evidence boundaries for journal, dream, and handoff material | Runtime, adapter, and audit-tool implementers |
-| v0.3 | Candidate work on `t4-portability`; release after cross-repository and second-consumer conformance | Runtime client envelopes, extension governance, compatibility profiles, a second validator implementation, migration tooling contracts, and a candidate stable core | Tests that the contracts are portable across clients and not accidentally shaped around one Runtime | Third-party implementers and long-lived deployments |
+| v0.3 | RC after cross-repository conformance; stable release still requires a second independent consumer | Runtime client envelopes, extension governance, compatibility profiles, a second validator implementation, migration tooling contracts, and a candidate stable core | Tests that the contracts are portable across clients and not accidentally shaped around one Runtime | Third-party implementers and long-lived deployments |
 
 ## Release gates
 

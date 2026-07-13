@@ -2,7 +2,7 @@
 
 House Protocols is an experimental set of model-independent data contracts for persistent agent systems. It defines how events, context references, evidence, initiatives, memory resignatures, Keel documents, and memory policy decisions can be exchanged across different runtimes.
 
-The unreleased `t4-portability` branch adds transport-neutral Runtime request and response envelopes while retaining the stable `0.2` document profile.
+The v0.3 release candidate adds transport-neutral Runtime request and response envelopes while retaining the stable `0.2` document profile.
 
 It does not claim that a model is conscious, and it does not treat model output as inherently true.
 
