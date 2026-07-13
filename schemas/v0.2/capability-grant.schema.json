@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://house-protocols.dev/schemas/v0.2/capability-grant.schema.json",
+  "title": "Capability Grant",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol_version", "grant_id", "grantee_id", "capability", "scope", "risk_tier", "confirmation_mode", "issued_by", "issued_at"],
+  "properties": {
+    "protocol_version": { "const": "0.2" },
+    "grant_id": { "$ref": "common.schema.json#/$defs/id" },
+    "grantee_id": { "$ref": "common.schema.json#/$defs/id" },
+    "capability": { "type": "string", "pattern": "^[a-z][a-z0-9_.-]{2,119}$" },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["resource_pattern", "operations"],
+      "properties": {
+        "resource_pattern": { "type": "string", "minLength": 1, "maxLength": 512 },
+        "operations": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[a-z][a-z0-9_.-]{1,79}$" }
+        }
+      }
+    },
+    "risk_tier": { "type": "string", "enum": ["low", "medium", "high"] },
+    "confirmation_mode": { "type": "string", "enum": ["none", "once_per_scope", "each_use"] },
+    "issued_by": { "$ref": "common.schema.json#/$defs/id" },
+    "issued_at": { "$ref": "common.schema.json#/$defs/timestamp" },
+    "not_before": { "$ref": "common.schema.json#/$defs/timestamp" },
+    "expires_at": { "$ref": "common.schema.json#/$defs/timestamp" },
+    "revoked_at": { "$ref": "common.schema.json#/$defs/timestamp" },
+    "extensions": { "type": "object" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "risk_tier": { "const": "high" } }, "required": ["risk_tier"] },
+      "then": { "properties": { "confirmation_mode": { "const": "each_use" } } }
+    }
+  ]
+}

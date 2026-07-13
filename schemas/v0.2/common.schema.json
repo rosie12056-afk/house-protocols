@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://house-protocols.dev/schemas/v0.2/common.schema.json",
+  "title": "House Protocols Common Types",
+  "$defs": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160,
+      "pattern": "^[A-Za-z][A-Za-z0-9._-]*:[A-Za-z0-9][A-Za-z0-9._:-]*$"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]{1,9})?Z$"
+    },
+    "reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ref_id", "kind", "locator"],
+      "properties": {
+        "ref_id": { "$ref": "#/$defs/id" },
+        "kind": {
+          "type": "string",
+          "enum": ["event", "message", "memory", "artifact", "source", "claim", "evidence", "lifecycle", "scheduler_lease", "capability_grant", "other"]
+        },
+        "locator": { "type": "string", "minLength": 1, "maxLength": 1024 },
+        "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+        "observed_at": { "$ref": "#/$defs/timestamp" }
+      }
+    }
+  }
+}

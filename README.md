@@ -16,7 +16,9 @@ The three repositories form one explicit chain:
 
 This repository is the definition layer. It does not schedule work or run models. See [ROADMAP.md](ROADMAP.md) and [COMPATIBILITY.md](COMPATIBILITY.md).
 
-## What v0.1 includes
+## What the current release candidate includes
+
+The package retains the complete `0.1` profile and adds an explicit `0.2` release-candidate profile. Callers choose a profile; documents are never silently coerced between versions.
 
 - **Event Envelope**: stable event identity, origin, target, time, idempotency, and tracing fields.
 - **Context Manifest**: records which context references were used without copying private source text.
@@ -25,8 +27,18 @@ This repository is the definition layer. It does not schedule work or run models
 - **Memory Resignature**: links a later interpretation back to its source and previous interpretation without overwriting history.
 - **Keel Document**: represents identity material and provenance while leaving interpretation to the instance.
 - **Memory Policy Decision**: expresses allow, deny, quarantine, redact, or confirmation decisions.
+- **Record Lifecycle Event (`0.2`)**: records supersession, soft deletion, and restoration without overwriting the original record.
+- **Scheduler Lease (`0.2`)**: defines bounded ownership with expiry and fencing tokens.
+- **Capability Grant (`0.2`)**: defines scoped operations, risk tier, and confirmation mode.
 
-Schemas live in `schemas/`. Cross-field rules live in `src/semantic-rules.mjs`.
+The original `0.1` schemas remain in `schemas/`; `0.2` schemas live in `schemas/v0.2/`. Cross-field rules live in `src/semantic-rules.mjs`.
+
+```js
+import { validateProtocol } from "house-protocols";
+
+validateProtocol("event", eventV01, { profile: "0.1" });
+validateProtocol("scheduler_lease", leaseV02, { profile: "0.2" });
+```
 
 ## What each protocol solves
 
@@ -39,6 +51,9 @@ Schemas live in `schemas/`. Cross-field rules live in `src/semantic-rules.mjs`.
 | Memory Resignature | Preserves how an interpretation changes over time while retaining the original record |
 | Keel Document | Gives identity material a stable structure while keeping real instance content private |
 | Memory Policy Decision | Makes memory access, promotion, quarantine, redaction, and confirmation auditable |
+| Record Lifecycle Event | Makes supersession and soft deletion append-only and reversible |
+| Scheduler Lease | Prevents overlapping workers from treating stale ownership as current |
+| Capability Grant | Keeps tool authority scoped, expiring, and explicit about confirmation |
 
 ## Five-minute demo
 
@@ -73,7 +88,7 @@ Demo output is written to `.demo-output/`.
 - A Context Manifest stores references, not the private body of referenced material.
 - Evidence is auditable material, not truth. Implementations still need an explicit truth-assessment policy.
 - The Keel example uses only a fictional agent. Its grounding statement is `缘起性空，性空缘起，一切皆是因果。`; it is not copied from a real House instance.
-- v0.1 is **experimental** and may introduce incompatible changes.
+- v0.2 is an **experimental release candidate** and may introduce incompatible changes before its stable v0.2 release.
 - This release provides protocols, semantic validation, and a demo. It does not provide production scheduling, queues, databases, or model calls.
 
 ## Not included
@@ -89,6 +104,8 @@ Demo output is written to `.demo-output/`.
 ```text
 house-protocols/
 |-- schemas/              # JSON Schema contracts
+|   `-- v0.2/             # Explicit v0.2 profile; v0.1 remains at schemas/
+|-- fixtures/             # Retained v0.1 and v0.1-to-v0.2 migration records
 |-- src/                  # Schema validation and cross-field semantic rules
 |-- examples/             # Fully fictional protocol examples
 |-- demo/                 # Five-minute closed-loop demo
@@ -99,4 +116,4 @@ house-protocols/
 `-- README.md
 ```
 
-See [ROADMAP.md](ROADMAP.md), [COMPATIBILITY.md](COMPATIBILITY.md), and [CONTRIBUTING.md](CONTRIBUTING.md).
+See [MIGRATION.md](MIGRATION.md), [ERROR-CODES.md](ERROR-CODES.md), [ROADMAP.md](ROADMAP.md), [COMPATIBILITY.md](COMPATIBILITY.md), and [CONTRIBUTING.md](CONTRIBUTING.md).

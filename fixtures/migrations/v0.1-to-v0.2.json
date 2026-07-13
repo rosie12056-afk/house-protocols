@@ -1,0 +1,164 @@
+{
+  "migration": "0.1-to-0.2",
+  "records": [
+    {
+      "kind": "event",
+      "before": {
+        "protocol_version": "0.1",
+        "event_id": "event:fictional:1",
+        "event_type": "user:message",
+        "source": "user:avery",
+        "target": "agent:lantern",
+        "occurred_at": "2032-04-05T09:00:00.000Z",
+        "idempotency_key": "fictional-event-1",
+        "payload": {}
+      },
+      "after": {
+        "protocol_version": "0.2",
+        "event_id": "event:fictional:1",
+        "event_type": "user:message",
+        "source": "user:avery",
+        "target": "agent:lantern",
+        "occurred_at": "2032-04-05T09:00:00.000Z",
+        "idempotency_key": "fictional-event-1",
+        "payload": {}
+      }
+    },
+    {
+      "kind": "context_manifest",
+      "before": {
+        "protocol_version": "0.1",
+        "manifest_id": "manifest:fictional:1",
+        "run_id": "run:fictional:1",
+        "subject_id": "agent:lantern",
+        "created_at": "2032-04-05T09:01:00.000Z",
+        "entries": [{"ref_id": "event:fictional:1", "kind": "event", "locator": "events/fictional-1", "purpose": "current request"}]
+      },
+      "after": {
+        "protocol_version": "0.2",
+        "manifest_id": "manifest:fictional:1",
+        "run_id": "run:fictional:1",
+        "subject_id": "agent:lantern",
+        "created_at": "2032-04-05T09:01:00.000Z",
+        "entries": [{"ref_id": "event:fictional:1", "kind": "event", "locator": "events/fictional-1", "purpose": "current request"}]
+      }
+    },
+    {
+      "kind": "evidence",
+      "before": {
+        "protocol_version": "0.1",
+        "bundle_id": "evidence:fictional:1",
+        "created_at": "2032-04-05T09:02:00.000Z",
+        "claims": [{"claim_id": "claim:fictional:1", "claim_type": "action_result", "statement": "The runtime wrote a fictional artifact.", "status": "supported"}],
+        "evidence": [{"evidence_id": "evidence-item:fictional:1", "supports_claim_ids": ["claim:fictional:1"], "evidence_type": "artifact", "source_ref": {"ref_id": "artifact:fictional:1", "kind": "artifact", "locator": "artifacts/fictional.txt"}, "observed_at": "2032-04-05T09:02:00.000Z"}]
+      },
+      "after": {
+        "protocol_version": "0.2",
+        "bundle_id": "evidence:fictional:1",
+        "created_at": "2032-04-05T09:02:00.000Z",
+        "claims": [{"claim_id": "claim:fictional:1", "claim_type": "action_result", "statement": "The runtime wrote a fictional artifact.", "status": "supported"}],
+        "evidence": [{"evidence_id": "evidence-item:fictional:1", "supports_claim_ids": ["claim:fictional:1"], "evidence_type": "artifact", "source_ref": {"ref_id": "artifact:fictional:1", "kind": "artifact", "locator": "artifacts/fictional.txt"}, "observed_at": "2032-04-05T09:02:00.000Z"}]
+      }
+    },
+    {
+      "kind": "initiative",
+      "before": {
+        "protocol_version": "0.1",
+        "initiative_id": "initiative:fictional:1",
+        "owner_id": "agent:lantern",
+        "goal": "Produce a verifiable fictional artifact.",
+        "status": "active",
+        "created_at": "2032-04-05T09:00:00.000Z",
+        "updated_at": "2032-04-05T09:02:00.000Z",
+        "actual_actions": [],
+        "outputs": [],
+        "evidence_refs": []
+      },
+      "after": {
+        "protocol_version": "0.2",
+        "initiative_id": "initiative:fictional:1",
+        "owner_id": "agent:lantern",
+        "goal": "Produce a verifiable fictional artifact.",
+        "status": "active",
+        "created_at": "2032-04-05T09:00:00.000Z",
+        "updated_at": "2032-04-05T09:02:00.000Z",
+        "actual_actions": [],
+        "outputs": [],
+        "evidence_refs": []
+      }
+    },
+    {
+      "kind": "resignature",
+      "before": {
+        "protocol_version": "0.1",
+        "resignature_id": "resignature:fictional:1",
+        "subject_id": "agent:lantern",
+        "source_ref": {"ref_id": "memory:fictional:1", "kind": "memory", "locator": "memories/fictional-1"},
+        "layer": 1,
+        "stance": "recognize",
+        "reflection_body": "The later interpretation remains explicitly separate from the source memory.",
+        "created_at": "2032-04-05T09:03:00.000Z",
+        "provenance": {"origin": "self_reflection", "recorded_by": "agent:lantern"}
+      },
+      "after": {
+        "protocol_version": "0.2",
+        "resignature_id": "resignature:fictional:1",
+        "subject_id": "agent:lantern",
+        "source_ref": {"ref_id": "memory:fictional:1", "kind": "memory", "locator": "memories/fictional-1"},
+        "layer": 1,
+        "stance": "recognize",
+        "claim_scope": "interpretation_only",
+        "reflection_body": "The later interpretation remains explicitly separate from the source memory.",
+        "evidence_refs": [],
+        "created_at": "2032-04-05T09:03:00.000Z",
+        "provenance": {"origin": "self_reflection", "recorded_by": "agent:lantern"}
+      }
+    },
+    {
+      "kind": "keel",
+      "before": {
+        "protocol_version": "0.1",
+        "keel_id": "keel:fictional:1",
+        "subject_id": "agent:lantern",
+        "revision": 1,
+        "grounding_statement": "缘起性空，性空缘起，一切皆是因果。",
+        "created_at": "2032-04-05T09:00:00.000Z",
+        "provenance": {"instance": "fictional_example", "author_id": "user:avery"}
+      },
+      "after": {
+        "protocol_version": "0.2",
+        "keel_id": "keel:fictional:1",
+        "subject_id": "agent:lantern",
+        "revision": 1,
+        "grounding_statement": "缘起性空，性空缘起，一切皆是因果。",
+        "created_at": "2032-04-05T09:00:00.000Z",
+        "provenance": {"instance": "fictional_example", "author_id": "user:avery"}
+      }
+    },
+    {
+      "kind": "memory_policy_decision",
+      "before": {
+        "protocol_version": "0.1",
+        "decision_id": "decision:fictional:1",
+        "operation": "promote",
+        "subject_id": "agent:lantern",
+        "resource_ref": {"ref_id": "memory:fictional:1", "kind": "memory", "locator": "memories/fictional-1"},
+        "decision": "quarantine",
+        "reason_codes": ["source_unverified"],
+        "decided_at": "2032-04-05T09:04:00.000Z"
+      },
+      "after": {
+        "protocol_version": "0.2",
+        "decision_id": "decision:fictional:1",
+        "operation": "promote",
+        "subject_id": "agent:lantern",
+        "resource_ref": {"ref_id": "memory:fictional:1", "kind": "memory", "locator": "memories/fictional-1"},
+        "source_class": "imported_unknown",
+        "decision": "quarantine",
+        "reason_codes": ["source_unverified"],
+        "evidence_refs": [],
+        "decided_at": "2032-04-05T09:04:00.000Z"
+      }
+    }
+  ]
+}

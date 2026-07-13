@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://house-protocols.dev/schemas/v0.2/event.schema.json",
+  "title": "Event Envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol_version", "event_id", "event_type", "source", "target", "occurred_at", "idempotency_key", "payload"],
+  "properties": {
+    "protocol_version": { "const": "0.2" },
+    "event_id": { "$ref": "common.schema.json#/$defs/id" },
+    "event_type": { "type": "string", "minLength": 3, "maxLength": 120, "pattern": "^[a-z][a-z0-9_.-]*:[a-z][a-z0-9_.-]*$" },
+    "source": { "$ref": "common.schema.json#/$defs/id" },
+    "target": { "$ref": "common.schema.json#/$defs/id" },
+    "occurred_at": { "$ref": "common.schema.json#/$defs/timestamp" },
+    "idempotency_key": { "type": "string", "minLength": 8, "maxLength": 200 },
+    "correlation_id": { "$ref": "common.schema.json#/$defs/id" },
+    "causation_id": { "$ref": "common.schema.json#/$defs/id" },
+    "payload": { "type": "object" },
+    "extensions": { "type": "object" }
+  }
+}

@@ -3,12 +3,12 @@ import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
-import { RULE_CODES, protocolKinds, validateProtocol } from "../src/index.mjs";
+import { RULE_CODES, VALIDATION_RULE_CODES, protocolKinds, protocolProfiles, validateProtocol } from "../src/index.mjs";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 
 test("all v0.1 protocol kinds are registered", () => {
-  assert.deepEqual(protocolKinds(), [
+  assert.deepEqual(protocolKinds("0.1"), [
     "event",
     "context_manifest",
     "evidence",
@@ -17,6 +17,31 @@ test("all v0.1 protocol kinds are registered", () => {
     "keel",
     "memory_policy_decision"
   ]);
+});
+
+test("v0.2 adds lifecycle, scheduler, and capability contracts without changing the v0.1 profile", () => {
+  assert.deepEqual(protocolProfiles(), ["0.1", "0.2"]);
+  assert.deepEqual(protocolKinds("0.2").slice(-3), ["record_lifecycle", "scheduler_lease", "capability_grant"]);
+  assert.equal(protocolKinds("0.1").includes("scheduler_lease"), false);
+});
+
+test("all retained v0.1 and migrated v0.2 fixtures validate in their explicit profiles", () => {
+  const fixture = JSON.parse(readFileSync(join(root, "fixtures", "migrations", "v0.1-to-v0.2.json"), "utf8"));
+  for (const record of fixture.records) {
+    assert.equal(validateProtocol(record.kind, record.before, { profile: "0.1" }).ok, true, `${record.kind} v0.1`);
+    assert.equal(validateProtocol(record.kind, record.after, { profile: "0.2" }).ok, true, `${record.kind} v0.2`);
+  }
+});
+
+test("all new v0.2 contracts validate", () => {
+  const fixture = JSON.parse(readFileSync(join(root, "fixtures", "v0.2", "new-contracts.json"), "utf8"));
+  for (const record of fixture.records) assert.equal(validateProtocol(record.kind, record.document, { profile: "0.2" }).ok, true, record.kind);
+});
+
+test("profile mismatch and unknown versions return stable rule codes", () => {
+  const event = JSON.parse(readFileSync(join(root, "fixtures", "migrations", "v0.1-to-v0.2.json"), "utf8")).records[0].before;
+  assert.equal(validateProtocol("event", event, { profile: "0.2" }).schema_errors[0].code, VALIDATION_RULE_CODES.PROFILE_MISMATCH);
+  assert.equal(validateProtocol("event", { ...event, protocol_version: "9.9" }).schema_errors[0].code, VALIDATION_RULE_CODES.UNKNOWN_VERSION);
 });
 
 test("the fictional Keel example is valid", () => {
@@ -62,4 +87,39 @@ test("a completion claim without action, output and evidence is rejected", () =>
       RULE_CODES.COMPLETED_WITHOUT_EVIDENCE
     ])
   );
+});
+
+test("v0.2 blocks ungrounded external memory promotion", () => {
+  const result = validateProtocol("memory_policy_decision", {
+    protocol_version: "0.2",
+    decision_id: "decision:fictional:unsafe",
+    operation: "promote",
+    subject_id: "agent:lantern",
+    resource_ref: { ref_id: "memory:fictional:unsafe", kind: "memory", locator: "memories/unsafe" },
+    source_class: "model_generated",
+    decision: "allow",
+    reason_codes: ["model_suggested"],
+    evidence_refs: [],
+    decided_at: "2032-04-05T09:04:00.000Z",
+  });
+  assert.equal(result.ok, false);
+  assert(result.semantic_errors.some((item) => item.code === RULE_CODES.MEMORY_PROMOTION_WITHOUT_EVIDENCE));
+});
+
+test("v0.2 treats resignature reflection as interpretation unless external claims have evidence", () => {
+  const migration = JSON.parse(readFileSync(join(root, "fixtures", "migrations", "v0.1-to-v0.2.json"), "utf8"));
+  const record = structuredClone(migration.records.find((item) => item.kind === "resignature").after);
+  record.claim_scope = "includes_external_claims";
+  const result = validateProtocol("resignature", record);
+  assert.equal(result.ok, false);
+  assert(result.semantic_errors.some((item) => item.code === RULE_CODES.RESIGNATURE_EXTERNAL_CLAIM_WITHOUT_EVIDENCE));
+});
+
+test("v0.2 scheduler leases reject inverted time windows", () => {
+  const fixture = JSON.parse(readFileSync(join(root, "fixtures", "v0.2", "new-contracts.json"), "utf8"));
+  const lease = structuredClone(fixture.records.find((item) => item.kind === "scheduler_lease").document);
+  lease.expires_at = lease.acquired_at;
+  const result = validateProtocol("scheduler_lease", lease);
+  assert.equal(result.ok, false);
+  assert(result.semantic_errors.some((item) => item.code === RULE_CODES.INVALID_TIME_ORDER));
 });

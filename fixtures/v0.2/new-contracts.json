@@ -1,0 +1,46 @@
+{
+  "records": [
+    {
+      "kind": "record_lifecycle",
+      "document": {
+        "protocol_version": "0.2",
+        "lifecycle_id": "lifecycle:fictional:1",
+        "record_ref": {"ref_id": "memory:fictional:old", "kind": "memory", "locator": "memories/fictional-old"},
+        "action": "supersede",
+        "actor_id": "agent:lantern",
+        "occurred_at": "2032-04-05T09:10:00.000Z",
+        "replacement_ref": {"ref_id": "memory:fictional:new", "kind": "memory", "locator": "memories/fictional-new"},
+        "reason_codes": ["corrected_source"],
+        "evidence_refs": ["evidence:fictional:correction"]
+      }
+    },
+    {
+      "kind": "scheduler_lease",
+      "document": {
+        "protocol_version": "0.2",
+        "lease_id": "lease:fictional:1",
+        "work_ref": {"ref_id": "initiative:fictional:1", "kind": "other", "locator": "initiatives/fictional-1"},
+        "holder_id": "runtime:fictional:worker-1",
+        "status": "active",
+        "acquired_at": "2032-04-05T09:10:00.000Z",
+        "expires_at": "2032-04-05T09:15:00.000Z",
+        "fencing_token": 1
+      }
+    },
+    {
+      "kind": "capability_grant",
+      "document": {
+        "protocol_version": "0.2",
+        "grant_id": "grant:fictional:1",
+        "grantee_id": "agent:lantern",
+        "capability": "workspace.write",
+        "scope": {"resource_pattern": "workspace://fictional/**", "operations": ["create", "update"]},
+        "risk_tier": "medium",
+        "confirmation_mode": "once_per_scope",
+        "issued_by": "user:avery",
+        "issued_at": "2032-04-05T09:00:00.000Z",
+        "expires_at": "2032-04-06T09:00:00.000Z"
+      }
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://house-protocols.dev/schemas/v0.2/resignature.schema.json",
+  "title": "Memory Resignature",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol_version", "resignature_id", "subject_id", "source_ref", "layer", "stance", "claim_scope", "reflection_body", "evidence_refs", "created_at", "provenance"],
+  "properties": {
+    "protocol_version": { "const": "0.2" },
+    "resignature_id": { "$ref": "common.schema.json#/$defs/id" },
+    "subject_id": { "$ref": "common.schema.json#/$defs/id" },
+    "source_ref": { "$ref": "common.schema.json#/$defs/reference" },
+    "previous_resignature_id": { "$ref": "common.schema.json#/$defs/id" },
+    "layer": { "type": "integer", "minimum": 1 },
+    "stance": { "type": "string", "enum": ["recognize", "revise", "reject", "distant", "uncertain"] },
+    "claim_scope": { "type": "string", "enum": ["interpretation_only", "includes_external_claims"] },
+    "reflection_body": { "type": "string", "minLength": 1, "maxLength": 16000 },
+    "evidence_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "common.schema.json#/$defs/id" }
+    },
+    "facets": {
+      "type": "object",
+      "additionalProperties": { "type": ["string", "number", "boolean", "null"] }
+    },
+    "created_at": { "$ref": "common.schema.json#/$defs/timestamp" },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["origin", "recorded_by"],
+      "properties": {
+        "origin": { "type": "string", "enum": ["self_reflection", "human_supplied", "imported", "system_derived"] },
+        "recorded_by": { "$ref": "common.schema.json#/$defs/id" },
+        "trigger_ref": { "$ref": "common.schema.json#/$defs/reference" }
+      }
+    },
+    "extensions": { "type": "object" }
+  }
+}
