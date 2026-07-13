@@ -1,19 +1,19 @@
-# 贡献指南
+# Contributing
 
-House Protocols v0.1 仍处于实验阶段。提交变更前请先说明要解决的互操作问题，并为新增或修改的硬规则补充测试。
+House Protocols v0.1 is experimental. Before proposing a change, describe the interoperability problem it solves and add tests for every new or changed hard rule.
 
 ```bash
 npm install
 npm run check
 ```
 
-贡献不得包含真实用户、真实 Agent、聊天、记忆、Keel、prompt、邮箱、密钥、域名、IP、端口或本机绝对路径。示例必须使用虚构身份和虚构事件。
+Contributions must not contain real users, agents, conversations, memories, Keels, prompts, email addresses, secrets, domains, IP addresses, ports, or absolute local paths. Every example must use fictional identities and fictional events.
 
-协议字段变更必须同步更新：
+A protocol field change must update all affected surfaces:
 
-- 对应 JSON Schema；
-- `src/semantic-rules.mjs` 中的跨字段规则；
-- 至少一个有效或无效测试；
-- README 中受影响的简短说明。
+- the corresponding JSON Schema;
+- cross-field rules in `src/semantic-rules.mjs`;
+- at least one valid or invalid test case;
+- the short explanation in the README.
 
-v0.1 允许不兼容变化，但必须在提交说明中明确标注。
+v0.1 may include incompatible changes, but every such change must be identified clearly in its commit or pull request description.

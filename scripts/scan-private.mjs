@@ -7,6 +7,7 @@ const ignoredDirs = new Set([".git", "node_modules", ".demo-output"]);
 const ignoredFiles = new Set(["scripts/scan-private.mjs"]);
 const textExtensions = new Set(["", ".md", ".json", ".mjs", ".js", ".yml", ".yaml", ".txt"]);
 const forbiddenExtensions = new Set([".db", ".sqlite", ".sqlite3", ".pem", ".key", ".p12", ".pfx", ".log"]);
+const allowedHanText = "缘起性空，性空缘起，一切皆是因果。";
 
 const privateNames = [
   ["Ro", "sie"],
@@ -50,10 +51,13 @@ for (const path of files) {
     findings.push({ file: rel, line: 0, label: "forbidden private-data file type" });
     continue;
   }
-  if (ignoredFiles.has(rel) || !textExtensions.has(extname(path))) continue;
+  if (!textExtensions.has(extname(path))) continue;
   const content = readFileSync(path, "utf8");
   const lines = content.split(/\r?\n/);
   for (let index = 0; index < lines.length; index += 1) {
+    const disallowedHan = lines[index].split(allowedHanText).join("").match(/\p{Script=Han}/u);
+    if (disallowedHan) findings.push({ file: rel, line: index + 1, label: "non-English public content" });
+    if (ignoredFiles.has(rel)) continue;
     for (const check of checks) {
       if (check.regex.test(lines[index])) findings.push({ file: rel, line: index + 1, label: check.label });
       check.regex.lastIndex = 0;
