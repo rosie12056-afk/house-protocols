@@ -2,7 +2,7 @@
 
 House Protocols is an experimental set of model-independent data contracts for persistent agent systems. It defines how events, context references, evidence, initiatives, memory resignatures, Keel documents, and memory policy decisions can be exchanged across different runtimes.
 
-The v0.3 release candidate adds transport-neutral Runtime request and response envelopes while retaining the stable `0.2` document profile.
+The v0.3 release candidate adds transport-neutral Runtime request and response envelopes while retaining the stable `0.2` document profile. RC2 adds the read-only methods needed by operational clients: `run.list`, `evidence.get`, and `initiative.get`.
 
 It does not claim that a model is conscious, and it does not treat model output as inherently true.
 
@@ -36,7 +36,7 @@ The package retains the complete `0.1` profile and adds an explicit stable `0.2`
 - **Journal Entry (`0.2`)**: separates sourced events, reflections, and intentions; observed events require Evidence.
 - **Dream Record (`0.2`)**: is structurally marked `non_factual` so dream imagery cannot silently become an external fact.
 - **Handoff Record (`0.2`)**: links open and completed Initiative references and unresolved questions across periods.
-- **Runtime Request and Response (`0.2`)**: define a transport-neutral client envelope. Authentication identity is not a request field and must be attached by the host transport.
+- **Runtime Request and Response (`0.2`)**: define a transport-neutral client envelope. Authentication identity is not a request field and must be attached by the host transport. The candidate surface includes health, run submission and inspection, Evidence and Initiative readback, memory queries, and lifecycle queries.
 
 The original `0.1` schemas remain in `schemas/`; `0.2` schemas live in `schemas/v0.2/`. Cross-field rules live in `src/semantic-rules.mjs`.
 

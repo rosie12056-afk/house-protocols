@@ -1,6 +1,6 @@
 {
   "name": "house-protocols",
-  "version": "0.3.0-rc.1",
+  "version": "0.3.0-rc.2",
   "description": "Experimental, model-independent contracts for persistent agent systems.",
   "type": "module",
   "license": "Apache-2.0",

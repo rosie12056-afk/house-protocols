@@ -46,7 +46,47 @@
       "properties": {
         "protocol_version": { "const": "0.2" },
         "request_id": { "$ref": "common.schema.json#/$defs/id" },
+        "method": { "const": "run.list" },
+        "params": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "status": { "type": "string", "enum": ["queued", "running", "waiting_confirmation", "completed", "failed", "cancelled", "timed_out"] },
+            "limit": { "type": "integer", "minimum": 1, "maximum": 500 }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["protocol_version", "request_id", "method", "params"],
+      "properties": {
+        "protocol_version": { "const": "0.2" },
+        "request_id": { "$ref": "common.schema.json#/$defs/id" },
         "method": { "const": "run.get" },
+        "params": { "type": "object", "additionalProperties": false, "required": ["runId"], "properties": { "runId": { "$ref": "common.schema.json#/$defs/id" } } }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["protocol_version", "request_id", "method", "params"],
+      "properties": {
+        "protocol_version": { "const": "0.2" },
+        "request_id": { "$ref": "common.schema.json#/$defs/id" },
+        "method": { "const": "evidence.get" },
+        "params": { "type": "object", "additionalProperties": false, "required": ["runId"], "properties": { "runId": { "$ref": "common.schema.json#/$defs/id" } } }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["protocol_version", "request_id", "method", "params"],
+      "properties": {
+        "protocol_version": { "const": "0.2" },
+        "request_id": { "$ref": "common.schema.json#/$defs/id" },
+        "method": { "const": "initiative.get" },
         "params": { "type": "object", "additionalProperties": false, "required": ["runId"], "properties": { "runId": { "$ref": "common.schema.json#/$defs/id" } } }
       }
     },

@@ -28,3 +28,5 @@ Protocols v0.2 exposes separate `0.1` and `0.2` profiles and retains migration f
 Protocols `v0.2.1` adds lifecycle kinds without changing existing `0.2` documents. Runtime v0.2 and Toolkit v0.2.1 pass the shared lifecycle fixture set.
 
 Package candidate `v0.3.0-rc.1` retains the `0.1` and `0.2` document profiles and adds `runtime_request` and `runtime_response` kinds to `0.2`. Two Runtime clients and cross-repository conformance consume these fixtures before a stable v0.3 release.
+
+Candidate `v0.3.0-rc.2` adds compatible read-only Runtime methods: `run.list`, `evidence.get`, and `initiative.get`. It does not add authentication data to the request envelope; host transports remain responsible for authenticated context. Consumers that expose the RC2 methods must pin Protocols RC2 or later and continue rejecting client-supplied authentication fields.

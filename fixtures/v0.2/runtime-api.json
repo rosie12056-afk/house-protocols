@@ -10,6 +10,9 @@
         "params": { "roomId": "room:fictional", "agentId": "agent:lantern", "message": "Create a fictional artifact.", "idempotencyKey": "fictional-submit-one" }
       }
     },
+    { "kind": "runtime_request", "document": { "protocol_version": "0.2", "request_id": "request:fictional:list", "method": "run.list", "params": { "status": "completed", "limit": 20 } } },
+    { "kind": "runtime_request", "document": { "protocol_version": "0.2", "request_id": "request:fictional:evidence", "method": "evidence.get", "params": { "runId": "run:fictional:one" } } },
+    { "kind": "runtime_request", "document": { "protocol_version": "0.2", "request_id": "request:fictional:initiative", "method": "initiative.get", "params": { "runId": "run:fictional:one" } } },
     { "kind": "runtime_response", "document": { "protocol_version": "0.2", "request_id": "request:fictional:submit", "ok": true, "result": { "run_id": "run:fictional:one", "status": "completed" } } },
     { "kind": "runtime_response", "document": { "protocol_version": "0.2", "request_id": "request:fictional:unknown", "ok": false, "error": { "code": "E_METHOD_NOT_FOUND", "message": "Unsupported Runtime method." } } }
   ]
