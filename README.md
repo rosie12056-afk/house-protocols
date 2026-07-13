@@ -6,6 +6,16 @@ It does not claim that a model is conscious, and it does not treat model output 
 
 > A sentence produced by a model proves only that the model produced that sentence. It cannot, by itself, establish an external fact. Accurate retrieval does not make retrieved content true.
 
+## House open-source stack
+
+The three repositories form one explicit chain:
+
+1. **[House Protocols](https://github.com/rosie12056-afk/house-protocols)** defines what records mean and which trust boundaries must hold.
+2. **[House Toolkit](https://github.com/rosie12056-afk/house-toolkit)** checks protocol, evidence, completion, and publication rules.
+3. **[House Runtime](https://github.com/rosie12056-afk/house-runtime)** executes durable work while preserving those boundaries.
+
+This repository is the definition layer. It does not schedule work or run models. See [ROADMAP.md](ROADMAP.md) and [COMPATIBILITY.md](COMPATIBILITY.md).
+
 ## What v0.1 includes
 
 - **Event Envelope**: stable event identity, origin, target, time, idempotency, and tracing fields.
@@ -89,4 +99,4 @@ house-protocols/
 `-- README.md
 ```
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution rules.
+See [ROADMAP.md](ROADMAP.md), [COMPATIBILITY.md](COMPATIBILITY.md), and [CONTRIBUTING.md](CONTRIBUTING.md).
