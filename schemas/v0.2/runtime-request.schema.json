@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://house-protocols.dev/schemas/v0.2/runtime-request.schema.json",
+  "title": "Runtime Request",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["protocol_version", "request_id", "method", "params"],
+      "properties": {
+        "protocol_version": { "const": "0.2" },
+        "request_id": { "$ref": "common.schema.json#/$defs/id" },
+        "method": { "const": "runtime.health" },
+        "params": { "type": "object", "additionalProperties": false }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["protocol_version", "request_id", "method", "params"],
+      "properties": {
+        "protocol_version": { "const": "0.2" },
+        "request_id": { "$ref": "common.schema.json#/$defs/id" },
+        "method": { "const": "run.submit" },
+        "params": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["roomId", "agentId", "message", "idempotencyKey"],
+          "properties": {
+            "roomId": { "$ref": "common.schema.json#/$defs/id" },
+            "agentId": { "$ref": "common.schema.json#/$defs/id" },
+            "message": { "type": "string", "minLength": 1, "maxLength": 32000 },
+            "idempotencyKey": { "type": "string", "minLength": 1, "maxLength": 240 },
+            "contextRefs": { "type": "array", "maxItems": 100, "items": { "$ref": "common.schema.json#/$defs/reference" } },
+            "capabilityGrant": { "type": "object" },
+            "timeoutMs": { "type": "integer", "minimum": 1, "maximum": 3600000 },
+            "maxAttempts": { "type": "integer", "minimum": 1, "maximum": 20 }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["protocol_version", "request_id", "method", "params"],
+      "properties": {
+        "protocol_version": { "const": "0.2" },
+        "request_id": { "$ref": "common.schema.json#/$defs/id" },
+        "method": { "const": "run.get" },
+        "params": { "type": "object", "additionalProperties": false, "required": ["runId"], "properties": { "runId": { "$ref": "common.schema.json#/$defs/id" } } }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["protocol_version", "request_id", "method", "params"],
+      "properties": {
+        "protocol_version": { "const": "0.2" },
+        "request_id": { "$ref": "common.schema.json#/$defs/id" },
+        "method": { "const": "memory.query" },
+        "params": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["subjectId"],
+          "properties": {
+            "subjectId": { "$ref": "common.schema.json#/$defs/id" },
+            "limit": { "type": "integer", "minimum": 1, "maximum": 1000 },
+            "includeQuarantined": { "type": "boolean" }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["protocol_version", "request_id", "method", "params"],
+      "properties": {
+        "protocol_version": { "const": "0.2" },
+        "request_id": { "$ref": "common.schema.json#/$defs/id" },
+        "method": { "const": "lifecycle.query" },
+        "params": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["subjectId", "kind"],
+          "properties": {
+            "subjectId": { "$ref": "common.schema.json#/$defs/id" },
+            "kind": { "type": "string", "enum": ["journal", "dream", "handoff"] },
+            "limit": { "type": "integer", "minimum": 1, "maximum": 1000 }
+          }
+        }
+      }
+    }
+  ]
+}

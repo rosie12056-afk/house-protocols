@@ -19,12 +19,22 @@ test("all v0.1 protocol kinds are registered", () => {
   ]);
 });
 
-test("v0.2 adds lifecycle, scheduler, and capability contracts without changing the v0.1 profile", () => {
+test("v0.2 adds lifecycle, scheduler, capability, and Runtime API contracts without changing the v0.1 profile", () => {
   assert.deepEqual(protocolProfiles(), ["0.1", "0.2"]);
-  for (const kind of ["record_lifecycle", "scheduler_lease", "capability_grant", "life_state", "lifecycle_opportunity", "journal_entry", "dream_record", "handoff_record"]) {
+  for (const kind of ["record_lifecycle", "scheduler_lease", "capability_grant", "life_state", "lifecycle_opportunity", "journal_entry", "dream_record", "handoff_record", "runtime_request", "runtime_response"]) {
     assert.equal(protocolKinds("0.2").includes(kind), true, kind);
   }
   assert.equal(protocolKinds("0.1").includes("scheduler_lease"), false);
+});
+
+test("Runtime API fixtures validate and client-supplied authentication fields do not", () => {
+  const fixture = JSON.parse(readFileSync(join(root, "fixtures", "v0.2", "runtime-api.json"), "utf8"));
+  for (const record of fixture.records) assert.equal(validateProtocol(record.kind, record.document, { profile: "0.2" }).ok, true, record.kind);
+  const forged = structuredClone(fixture.records.find((item) => item.kind === "runtime_request" && item.document.method === "run.submit").document);
+  forged.params.authenticated_by = "forged-client-value";
+  const result = validateProtocol("runtime_request", forged, { profile: "0.2" });
+  assert.equal(result.ok, false);
+  assert(result.schema_errors.some((error) => error.code === VALIDATION_RULE_CODES.ADDITIONAL_PROPERTY));
 });
 
 test("all retained v0.1 and migrated v0.2 fixtures validate in their explicit profiles", () => {

@@ -31,6 +31,8 @@ const PROFILES = Object.freeze({
       journal_entry: "journal-entry.schema.json",
       dream_record: "dream-record.schema.json",
       handoff_record: "handoff-record.schema.json",
+      runtime_request: "runtime-request.schema.json",
+      runtime_response: "runtime-response.schema.json",
     }),
   },
 });
