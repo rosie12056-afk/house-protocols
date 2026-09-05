@@ -12,7 +12,7 @@ House Protocols has two related version surfaces:
 - Consumers must reject unknown protocol versions. They must not silently coerce a v0.2 document into v0.1.
 - Security corrections may reject previously accepted unsafe input. Such a change must include a rule code, fixture, release note, and migration guidance.
 
-## Current matrix
+## Original v0.1 compatibility matrix
 
 | Consumer | Consumer release | Protocol package | Document version | Upgrade behavior |
 | --- | --- | --- | --- | --- |
@@ -30,3 +30,7 @@ Protocols `v0.2.1` adds lifecycle kinds without changing existing `0.2` document
 Package candidate `v0.3.0-rc.1` retains the `0.1` and `0.2` document profiles and adds `runtime_request` and `runtime_response` kinds to `0.2`. Two Runtime clients and cross-repository conformance consume these fixtures before a stable v0.3 release.
 
 Candidate `v0.3.0-rc.2` adds compatible read-only Runtime methods: `run.list`, `evidence.get`, and `initiative.get`. It does not add authentication data to the request envelope; host transports remain responsible for authenticated context. Consumers that expose the RC2 methods must pin Protocols RC2 or later and continue rejecting client-supplied authentication fields.
+
+## September 2026 maintenance
+
+Package `0.3.0-rc.3` follows `0.3.0-rc.2` with unchanged document profiles and storage semantics. Use the committed root lockfile; downstream projects must update their own locks. See [CHANGELOG.md](CHANGELOG.md).
