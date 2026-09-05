@@ -1,6 +1,6 @@
 {
   "name": "house-protocols",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Experimental, model-independent contracts for persistent agent systems.",
   "type": "module",
   "license": "Apache-2.0",
@@ -16,7 +16,8 @@
     "MIGRATION.md",
     "ERROR-CODES.md",
     "LICENSE",
-    "NOTICE"
+    "NOTICE",
+    "CHANGELOG.md"
   ],
   "exports": {
     ".": "./src/index.mjs",
