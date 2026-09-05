@@ -1,5 +1,7 @@
 # House Protocols
 
+Maintenance release `0.3.0-rc.3` preserves the existing maturity and document profiles. See [CHANGELOG.md](CHANGELOG.md) for dependency changes and consumer lockfile guidance.
+
 House Protocols is an experimental set of model-independent data contracts for persistent agent systems. It defines how events, context references, evidence, initiatives, memory resignatures, Keel documents, and memory policy decisions can be exchanged across different runtimes.
 
 The v0.3 release candidate adds transport-neutral Runtime request and response envelopes while retaining the stable `0.2` document profile. RC2 adds the read-only methods needed by operational clients: `run.list`, `evidence.get`, and `initiative.get`.
