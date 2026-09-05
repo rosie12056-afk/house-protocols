@@ -1,5 +1,7 @@
 # House Protocols
 
+Maintenance release `0.2.2` preserves the existing maturity and document profiles. See [CHANGELOG.md](CHANGELOG.md) for dependency changes and consumer lockfile guidance.
+
 House Protocols is an experimental set of model-independent data contracts for persistent agent systems. It defines how events, context references, evidence, initiatives, memory resignatures, Keel documents, and memory policy decisions can be exchanged across different runtimes.
 
 It does not claim that a model is conscious, and it does not treat model output as inherently true.

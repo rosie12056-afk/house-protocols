@@ -12,7 +12,7 @@ House Protocols has two related version surfaces:
 - Consumers must reject unknown protocol versions. They must not silently coerce a v0.2 document into v0.1.
 - Security corrections may reject previously accepted unsafe input. Such a change must include a rule code, fixture, release note, and migration guidance.
 
-## Current matrix
+## Original v0.1 compatibility matrix
 
 | Consumer | Consumer release | Protocol package | Document version | Upgrade behavior |
 | --- | --- | --- | --- | --- |
@@ -26,3 +26,7 @@ Dependency lockfiles resolve the tags to commit SHAs. Publishing Protocols v0.2 
 Protocols v0.2 exposes separate `0.1` and `0.2` profiles and retains migration fixtures for all seven original kinds. House Toolkit v0.2 validates both profiles. House Runtime adopted v0.2 explicitly and runs the shared fixtures. Compatibility is demonstrated by tests; matching version numbers alone is not sufficient.
 
 Protocols `v0.2.1` adds lifecycle kinds without changing existing `0.2` documents. Runtime v0.2 and Toolkit v0.2.1 pass the shared lifecycle fixture set.
+
+## September 2026 maintenance
+
+Package `0.2.2` follows `0.2.1` with unchanged document profiles and storage semantics. Use the committed root lockfile; downstream projects must update their own locks. See [CHANGELOG.md](CHANGELOG.md).
